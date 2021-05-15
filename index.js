@@ -6,6 +6,8 @@ const { PORT = 3000 } = process.env;
 
 const apiRouter = require("./apiRouter.js");
 
+server.use(express.json());
+
 server.use(express.static("public"));
 
 server.use("/api", apiRouter);
