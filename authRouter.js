@@ -11,7 +11,8 @@ const { getUserByUsername, createUser } = require("./db/index.js");
 const authRouter = Router();
 
 authRouter.get("/me", (req, res, next) => {
-  if (req.user) {
+  const { user } = req;
+  if (user) {
     res.send(user);
   } else {
     res.send(null);

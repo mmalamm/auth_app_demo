@@ -23,7 +23,7 @@ async function createUsersTable() {
       CREATE TABLE users(
         id SERIAL PRIMARY KEY,
         username VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
+        password VARCHAR(255) NOT NULL
       );
     `);
   } catch (error) {
@@ -46,4 +46,6 @@ async function rebuildDb() {
   }
 }
 
-rebuildDb();
+rebuildDb().finally(() => {
+  client.end();
+});

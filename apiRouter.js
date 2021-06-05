@@ -20,7 +20,7 @@ const attachUser = async (req, res, next) => {
     const { username } = jwt.verify(token, JWT_SECRET);
 
     try {
-      const user = getUserByUsername(username);
+      const user = await getUserByUsername(username);
 
       if (user) {
         delete user.password;
