@@ -6,4 +6,8 @@
 - smoke test using curl or postman DONE
 
 - create basic frontend
+    - create a greeting component DONE
+    - create a login form DONE
+    - create register form
+
 - deployment
