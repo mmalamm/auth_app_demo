@@ -18,3 +18,22 @@ export const loginUser = (username, password) => {
       return user;
     });
 };
+
+export const registerUser = (username, password) => {
+  return fetch("/api/auth/register", {
+    method: "POST",
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((d) => d.json())
+    .then((r) => {
+      const { user, token } = r;
+      setToken(token);
+      return user;
+    });
+};

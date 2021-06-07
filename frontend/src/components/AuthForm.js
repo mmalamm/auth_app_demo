@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
-
-const RegisterForm = () => {
-  return <h3>Register!!</h3>;
-};
+import RegisterForm from "./RegisterForm";
 
 const AuthForm = ({ setUser }) => {
   const [formType, setFormType] = useState("login");
   return formType === "login" ? (
-    <LoginForm setUser={setUser} />
+    <LoginForm setUser={setUser} setFormType={setFormType} />
   ) : (
-    <RegisterForm />
+    <RegisterForm setUser={setUser} setFormType={setFormType} />
   );
 };
 

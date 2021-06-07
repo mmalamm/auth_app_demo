@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { getToken } from "./token.js";
 
 import AuthForm from "./components/AuthForm";
+import Greeting from "./components/Greeting";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -21,7 +22,11 @@ const App = () => {
       });
   }, []);
 
-  return user ? <h1>hi {user.username}</h1> : <AuthForm setUser={setUser}/>;
+  return user ? (
+    <Greeting user={user} setUser={setUser} />
+  ) : (
+    <AuthForm setUser={setUser} />
+  );
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));

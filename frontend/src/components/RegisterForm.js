@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { loginUser } from "../util";
+import { registerUser } from "../util";
 
-const LoginForm = ({ setUser, setFormType }) => {
+const RegisterForm = ({ setUser, setFormType }) => {
   const [unameInput, setUnameInput] = useState("");
   const [pwInput, setPwInput] = useState("");
+  const [confirmPwInput, setConfirmPwInput] = useState("");
   const submitHandler = (evt) => {
     evt.preventDefault();
-    loginUser(unameInput, pwInput).then((user) => {
+
+    if (pwInput !== confirmPwInput) {
+      return alert("passwords do not match!");
+    }
+
+    registerUser(unameInput, pwInput).then((user) => {
       setUser(user);
     });
   };
@@ -18,14 +24,19 @@ const LoginForm = ({ setUser, setFormType }) => {
     evt.preventDefault();
     setPwInput(evt.target.value);
   };
-
-  const handleRegisterClick = e => {
+  const confirmPwChangeHandler = (e) => {
     e.preventDefault();
-    setFormType('register')
-  }
+    setConfirmPwInput(e.target.value);
+  };
+
+  const handleRegisterClick = (e) => {
+    e.preventDefault();
+    setFormType("login");
+  };
+
   return (
     <div>
-      <h2>Login Form</h2>
+      <h2>Register Form</h2>
       <form onSubmit={submitHandler}>
         <input
           type="text"
@@ -39,14 +50,20 @@ const LoginForm = ({ setUser, setFormType }) => {
           value={pwInput}
           onChange={pwChangeHandler}
         />
+        <input
+          type="password"
+          placeholder="confirm password"
+          value={confirmPwInput}
+          onChange={confirmPwChangeHandler}
+        />
         <button>submit</button>
       </form>
       <p>
-        Not registered?{" "}
-        <button onClick={handleRegisterClick}>Register here</button>
+        Already registered?{" "}
+        <button onClick={handleRegisterClick}>Login here</button>
       </p>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
