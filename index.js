@@ -9,7 +9,7 @@ const client = require('./db/client.js');
 
 server.use(express.json());
 
-server.use(express.static("public"));
+server.use(express.static("frontend/build"));
 
 server.use("/api", apiRouter);
 
