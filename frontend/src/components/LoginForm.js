@@ -4,10 +4,20 @@ import { loginUser } from "../util";
 const LoginForm = ({ setUser, setFormType }) => {
   const [unameInput, setUnameInput] = useState("");
   const [pwInput, setPwInput] = useState("");
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const submitHandler = (evt) => {
     evt.preventDefault();
-    loginUser(unameInput, pwInput).then((user) => {
-      setUser(user);
+    setIsLoading(true);
+    loginUser(unameInput, pwInput).then((result) => {
+      const { user, error } = result;
+      setIsLoading(false);
+      if (error) {
+        setError(error);
+      }
+      if (user) {
+        setUser(user);
+      }
     });
   };
   const unameChangeHandler = (evt) => {
@@ -19,13 +29,14 @@ const LoginForm = ({ setUser, setFormType }) => {
     setPwInput(evt.target.value);
   };
 
-  const handleRegisterClick = e => {
+  const handleRegisterClick = (e) => {
     e.preventDefault();
-    setFormType('register')
-  }
+    setFormType("register");
+  };
   return (
     <div>
       <h2>Login Form</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={submitHandler}>
         <input
           type="text"
@@ -39,7 +50,7 @@ const LoginForm = ({ setUser, setFormType }) => {
           value={pwInput}
           onChange={pwChangeHandler}
         />
-        <button>submit</button>
+        <button disabled={isLoading}>submit</button>
       </form>
       <p>
         Not registered?{" "}

@@ -5,15 +5,24 @@ const RegisterForm = ({ setUser, setFormType }) => {
   const [unameInput, setUnameInput] = useState("");
   const [pwInput, setPwInput] = useState("");
   const [confirmPwInput, setConfirmPwInput] = useState("");
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const submitHandler = (evt) => {
     evt.preventDefault();
 
     if (pwInput !== confirmPwInput) {
       return alert("passwords do not match!");
     }
-
-    registerUser(unameInput, pwInput).then((user) => {
-      setUser(user);
+    setIsLoading(true);
+    registerUser(unameInput, pwInput).then((result) => {
+      setIsLoading(false);
+      const { user, error } = result;
+      if (error) {
+        setError(error);
+      }
+      if (user) {
+        setUser(user);
+      }
     });
   };
   const unameChangeHandler = (evt) => {
@@ -37,6 +46,7 @@ const RegisterForm = ({ setUser, setFormType }) => {
   return (
     <div>
       <h2>Register Form</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={submitHandler}>
         <input
           type="text"
@@ -56,7 +66,7 @@ const RegisterForm = ({ setUser, setFormType }) => {
           value={confirmPwInput}
           onChange={confirmPwChangeHandler}
         />
-        <button>submit</button>
+        <button disabled={isLoading}>submit</button>
       </form>
       <p>
         Already registered?{" "}

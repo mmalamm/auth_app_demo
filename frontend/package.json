@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "fe:dev": "react-scripts start",
-    "fe:build": "react-scripts build"
+    "fe:build": "react-scripts build",
+    "start": "npm run fe:dev"
   },
   "keywords": [],
   "author": "",

@@ -13,9 +13,11 @@ export const loginUser = (username, password) => {
   })
     .then((d) => d.json())
     .then((r) => {
-      const { user, token } = r;
-      setToken(token);
-      return user;
+      const { user, token, error } = r;
+      if (token) {
+        setToken(token);
+      }
+      return { user, error };
     });
 };
 
@@ -32,8 +34,10 @@ export const registerUser = (username, password) => {
   })
     .then((d) => d.json())
     .then((r) => {
-      const { user, token } = r;
-      setToken(token);
-      return user;
+      const { user, token, error } = r;
+      if (token) {
+        setToken(token);
+      }
+      return { user, error };
     });
 };

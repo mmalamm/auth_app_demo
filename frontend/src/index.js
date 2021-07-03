@@ -10,15 +10,19 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const token = getToken();
+    const headers = token ? {
+      Authorization: `Bearer ${token}`,
+    } : {}
+
+
     fetch("/api/auth/me", {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
+      headers,
     })
       .then((d) => d.json())
       .then((u) => {
         console.log(u);
-        if (u) setUser(u);
+        if (u.user) setUser(u.user);
       });
   }, []);
 

@@ -13,9 +13,9 @@ const authRouter = Router();
 authRouter.get("/me", (req, res, next) => {
   const { user } = req;
   if (user) {
-    res.send(user);
+    res.send({ user });
   } else {
-    res.send(null);
+    res.send({ user: null });
   }
 });
 
@@ -54,6 +54,9 @@ authRouter.post("/login", async (req, res, next) => {
 
 authRouter.post("/register", async (req, res, next) => {
   const { username, password } = req.body;
+  if (!username || !password) {
+    next(new Error("Missing login credentials!"));
+  }
   const _user = await getUserByUsername(username);
 
   if (_user) {
