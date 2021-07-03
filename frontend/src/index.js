@@ -6,15 +6,18 @@ import { getToken } from "./token.js";
 import AuthForm from "./components/AuthForm";
 import Greeting from "./components/Greeting";
 
+export const UserContext = React.createContext();
+
 const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const token = getToken();
-    const headers = token ? {
-      Authorization: `Bearer ${token}`,
-    } : {}
-
+    const headers = token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {};
 
     fetch("/api/auth/me", {
       headers,
@@ -26,10 +29,10 @@ const App = () => {
       });
   }, []);
 
-  return user ? (
-    <Greeting user={user} setUser={setUser} />
-  ) : (
-    <AuthForm setUser={setUser} />
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {user ? <Greeting /> : <AuthForm />}
+    </UserContext.Provider>
   );
 };
 

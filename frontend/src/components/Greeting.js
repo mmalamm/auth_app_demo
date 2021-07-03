@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "..";
 
-const Greeting = ({ user, setUser }) => {
+import Dashboard from './Dashboard'
+
+
+const Greeting = () => {
+  const {user, setUser} = useContext(UserContext)
+
   const handleLogout = () => {
     localStorage.clear();
     setUser(null)
@@ -10,6 +16,7 @@ const Greeting = ({ user, setUser }) => {
     <div>
       <h1>hello {user.username}</h1>
       <button onClick={handleLogout}>logout</button>
+      <Dashboard />
     </div>
   );
 };
