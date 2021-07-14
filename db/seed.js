@@ -47,5 +47,6 @@ async function rebuildDb() {
 }
 
 rebuildDb().finally(() => {
+  console.log("finished rebuilding db!!!");
   client.end();
 });
