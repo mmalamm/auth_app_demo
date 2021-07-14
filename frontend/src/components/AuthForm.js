@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserContext } from "..";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
-const AuthForm = ({ setUser }) => {
+const AuthForm = () => {
+  const { setUser } = useContext(UserContext);
   const [formType, setFormType] = useState("login");
   return formType === "login" ? (
     <LoginForm setUser={setUser} setFormType={setFormType} />
